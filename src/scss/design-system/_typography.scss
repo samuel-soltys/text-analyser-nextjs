@@ -1,0 +1,16 @@
+/* -------------------------------------------------------------------------- */
+/*                                 Typography                                 */
+/* -------------------------------------------------------------------------- */
+
+// Font Families
+// .font-code { font-family: "Source Code Pro", sans-serif; }
+
+body, html {
+    // @extend .font-code;
+    color: $text_primary;
+}
+
+p {
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
