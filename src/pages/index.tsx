@@ -160,6 +160,28 @@ const Home: NextPage = () => {
         },
         
     };
+    // const calculateAverage = (array: number[]): number => {
+    function calculateAverage(array: number[], str: string) {
+        // var words = separateToWords(text);
+        var regex = /[\p{L}]+/gu;
+        var words = str.match(regex);
+        let sum = 0;
+        console.log(words);
+        if(words) {
+            for (let i = 0; i < words.length; ++i) {
+                sum += words[i].length;
+            }
+        }
+        return sum / countWords(str);
+    }
+
+    // reading speed 250wpm, speaking spead 150wpm
+    function timeWords(str: string, wpm: number) {
+        const words = countWords(str);
+        const minutes = Math.floor(words / wpm);
+        const seconds = Math.round((words % wpm) / (wpm / 60));
+        return minutes + " minutes and " + seconds + " seconds";
+    }
     return (
         <section>
             <textarea className="text-prompt" value={text} onChange={handleChange} />
@@ -208,6 +230,9 @@ const Home: NextPage = () => {
                     height={300}
                     options={options}
                 />
+                <p>Average lengths: {calculateAverage(returnlengths(text, true), text)} Median: {} </p>
+                <p>Average reading time: {timeWords(text, 250)}</p>
+                <p>Average speaking time: {timeWords(text, 150)}</p>
             </div>
         </section>
     );
