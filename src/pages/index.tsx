@@ -23,6 +23,18 @@ const Home: NextPage = () => {
     function countCharacters(str: String) {
         return str.length;
     }
+    function countCharactersNoSpace(str: String) {
+        var regex = /\S/g;
+        var matches = str.split(regex);
+        return matches ? matches.length - 1 : 0;
+    }
+
+    // Sentences
+    function countSentences(str: String) {
+        var regex = /[\p{L}0-9-')]+[.?!]/gu;
+        var sentences = str.match(regex);
+        return sentences ? sentences.length : 0;
+    }
     
     return (
         <section>
@@ -31,6 +43,8 @@ const Home: NextPage = () => {
             <br />
             <p>Words: {countWords(text)}</p>
             <p>Characters with spaces: {countCharacters(text)}</p>
+            <p>Characters without spaces: {countCharactersNoSpace(text)}</p>
+            <p>Sentences: {countSentences(text)}</p>
         </section>
     );
 };
