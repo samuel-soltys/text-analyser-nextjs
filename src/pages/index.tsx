@@ -9,10 +9,19 @@ const Home: NextPage = () => {
     }
 
     // Words
-    function countWords(str: String) {
+    function separateToWords(str: String) {
         var regex = /[\p{L}0-9-']+/gu;
-        var words = str.match(regex);
+        var matches = str.match(regex);
+        return matches;
+    }
+    function countWords(str: String) {
+        var words = separateToWords(str);
         return words ? words.length : 0;
+    }
+
+    // Characters
+    function countCharacters(str: String) {
+        return str.length;
     }
     
     return (
@@ -21,6 +30,7 @@ const Home: NextPage = () => {
             <br />
             <br />
             <p>Words: {countWords(text)}</p>
+            <p>Characters with spaces: {countCharacters(text)}</p>
         </section>
     );
 };
