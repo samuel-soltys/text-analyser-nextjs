@@ -3,9 +3,13 @@ import { useState } from "react";
 
 const Home: NextPage = () => {
     const [text, setText] = useState("");
+    const [text_search, setText_search] = useState("");
 
     function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
         setText(e.target.value);
+    }
+    function handleChange_search(e: React.ChangeEvent<HTMLInputElement>) {
+        setText_search(e.target.value);
     }
 
     // Words
@@ -22,6 +26,13 @@ const Home: NextPage = () => {
     // Characters
     function countCharacters(str: String) {
         return str.length;
+    }
+    function countSpecificCharacter(str: String, char: string) {
+        if (char) {
+            return str.split(char).length - 1;
+        } else {
+            return 0;
+        }
     }
     function countCharactersNoSpace(str: String) {
         var regex = /\S/g;
@@ -90,6 +101,11 @@ const Home: NextPage = () => {
             <p>Sentences: {countSentences(text)}</p>
             <p>Complex Words (3 or more syllables): {countComplexWords(text)}</p>
             <p>Syllables (English): {countAllSyllables(text)}</p>
+            <br />
+            <p>Count occurance of character/sequence of characters: </p>
+            <input type="text" onChange={handleChange_search} />
+            <p>{countSpecificCharacter(text, text_search)}</p>
+            <br />
         </section>
     );
 };
