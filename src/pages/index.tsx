@@ -6,8 +6,6 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 ChartJS.register(CategoryScale, LinearScale, BarElement, Filler, Title, Tooltip, Legend);
 import { Bar } from "react-chartjs-2";
 
-
-
 const Home: NextPage = () => {
     const [text, setText] = useState("");
     const [text_search, setText_search] = useState("");
@@ -105,7 +103,7 @@ const Home: NextPage = () => {
         if (words) {
             const allwords = countWords(str);
             for (var i = 0; i < words.length; i++) {
-                if(words[i].length > 13) {
+                if (words[i].length > 13) {
                     lengths_count[13]++;
                 } else {
                     lengths_count[words[i].length - 1]++;
@@ -138,27 +136,26 @@ const Home: NextPage = () => {
                     //     beforeTitle = "test";
                     //     return beforeTitle;
                     // },
-                    label: function(context: any) {
+                    label: function (context: any) {
                         let label = context.dataset.label || "";
                         if (context.parsed.y !== null) {
-                            const count = Math.round(context.parsed.y / 100 * countWords(text));
+                            const count = Math.round((context.parsed.y / 100) * countWords(text));
                             label += context.parsed.y + "% = " + count + ` ${count >= 2 ? "words" : "word"}`;
                         }
                         return label;
-                    }
-                }
-            }
+                    },
+                },
+            },
         },
         scales: {
             y: {
                 ticks: {
-                    callback: function(value: any, index: any, ticks: any) {
-                        return value + '%';
-                    }
-                }
+                    callback: function (value: any, index: any, ticks: any) {
+                        return value + "%";
+                    },
+                },
             },
         },
-        
     };
     // const calculateAverage = (array: number[]): number => {
     function calculateAverage(array: number[], str: string) {
@@ -166,12 +163,14 @@ const Home: NextPage = () => {
         var regex = /[\p{L}]+/gu;
         var words = str.match(regex);
         let sum = 0;
-        if(words) {
+        if (words) {
             for (let i = 0; i < words.length; ++i) {
                 sum += words[i].length;
             }
+            return Math.round((sum / countWords(str)) * 100) / 100;
+        } else {
+            return 0;
         }
-        return Math.round(sum / countWords(str) * 100) / 100;
     }
 
     // reading speed 250wpm, speaking spead 150wpm
@@ -229,7 +228,9 @@ const Home: NextPage = () => {
                     height={300}
                     options={options}
                 />
-                <p>Average lengths: {calculateAverage(returnlengths(text, true), text)} Median: {} </p>
+                <p>
+                    Average lengths: {calculateAverage(returnlengths(text, true), text)}, Median: {}
+                </p>
                 <p>Average reading time: {timeWords(text, 250)}</p>
                 <p>Average speaking time: {timeWords(text, 150)}</p>
             </div>
