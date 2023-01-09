@@ -166,13 +166,12 @@ const Home: NextPage = () => {
         var regex = /[\p{L}]+/gu;
         var words = str.match(regex);
         let sum = 0;
-        console.log(words);
         if(words) {
             for (let i = 0; i < words.length; ++i) {
                 sum += words[i].length;
             }
         }
-        return sum / countWords(str);
+        return Math.round(sum / countWords(str) * 100) / 100;
     }
 
     // reading speed 250wpm, speaking spead 150wpm
